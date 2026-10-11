@@ -44,18 +44,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: starfall-mod
-          path: |
-            build/libs/*.jar
-            !build/libs/*-sources.jar
+          path: build/libs/*.jar
 
       - name: Publish GitHub release (tag push)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           name: Starfall ${{ github.ref_name }}
-          files: |
-            build/libs/*.jar
-            !build/libs/*-sources.jar
+          files: build/libs/*.jar
 
       - name: Publish GitHub release (manual run)
         if: github.event_name == 'workflow_dispatch' && inputs.release
@@ -64,6 +60,4 @@ jobs:
           tag_name: v${{ inputs.version }}
           target_commitish: ${{ github.sha }}
           name: Starfall v${{ inputs.version }}
-          files: |
-            build/libs/*.jar
-            !build/libs/*-sources.jar
+          files: build/libs/*.jar
