@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -92,9 +93,14 @@ public class StarWispEntity extends PathAwareEntity {
         return ActionResult.SUCCESS;
     }
 
+    /** Wisps are made of starlight: stars, star bolts and shockwaves pass right through them. */
     @Override
     public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
-        return source.isIn(DamageTypeTags.IS_FALL) || super.isInvulnerableTo(world, source);
+        return source.isIn(DamageTypeTags.IS_FALL)
+                || source.isIn(DamageTypeTags.IS_EXPLOSION)
+                || source.isOf(DamageTypes.FIREWORKS)
+                || source.isOf(DamageTypes.FALLING_BLOCK)
+                || super.isInvulnerableTo(world, source);
     }
 
     @Override

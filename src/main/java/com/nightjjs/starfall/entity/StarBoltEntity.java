@@ -112,7 +112,7 @@ public class StarBoltEntity extends FireworkRocketEntity {
     }
 
     private boolean isValidTarget(LivingEntity entity) {
-        if (entity == shooterEntity || !entity.isAlive() || entity.isSpectator()) {
+        if (entity == shooterEntity || !entity.isAlive() || entity.isSpectator() || entity instanceof StarWispEntity) {
             return false;
         }
         if (entity instanceof PlayerEntity player && player.isCreative()) {
