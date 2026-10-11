@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "SCS",
+    "S S"
+  ],
+  "key": {
+    "S": "starfall:star_shard",
+    "C": "starfall:star_core"
+  },
+  "result": {
+    "id": "starfall:starforged_helmet",
+    "count": 1
+  }
+}

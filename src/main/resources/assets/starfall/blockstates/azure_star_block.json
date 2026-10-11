@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "starfall:block/azure_star_block"
+    }
+  }
+}

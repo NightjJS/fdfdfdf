@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "starfall:starlight_blade"
+    "starfall:starlight_blade",
+    "starfall:comet_hammer"
   ]
 }

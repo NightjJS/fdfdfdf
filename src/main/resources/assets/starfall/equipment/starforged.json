@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "starfall:starforged"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "starfall:starforged"
+      }
+    ]
+  }
+}

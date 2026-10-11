@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "starfall:astral_log"
+  ],
+  "result": {
+    "id": "starfall:astral_planks",
+    "count": 4
+  }
+}

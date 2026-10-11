@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "triggered"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:celestial_altar",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.summon_guardian.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.summon_guardian.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:star_core"
+}

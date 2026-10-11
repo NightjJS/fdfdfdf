@@ -1,0 +1,41 @@
+{
+  "criteria": {
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "starfall:star_guardian"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "killed"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:guardian_sigil",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.kill_guardian.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.kill_guardian.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:summon_guardian"
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "starfall:starforged_helmet",
+    "starfall:starforged_chestplate",
+    "starfall:starforged_leggings",
+    "starfall:starforged_boots"
+  ]
+}

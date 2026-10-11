@@ -1,6 +1,8 @@
 package com.nightjjs.starfall.event;
 
+import com.nightjjs.starfall.registry.ModAdvancements;
 import com.nightjjs.starfall.registry.ModItems;
+import com.nightjjs.starfall.registry.ModParticles;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.LivingEntity;
@@ -57,18 +59,19 @@ public final class ImmortalHeartHandler {
         world.sendEntityStatus(player, EntityStatuses.USE_TOTEM_OF_UNDYING);
         world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, player.getX(), player.getBodyY(0.5), player.getZ(),
                 60, 0.5, 0.8, 0.5, 0.3);
-        world.spawnParticles(ParticleTypes.END_ROD, player.getX(), player.getBodyY(0.5), player.getZ(),
-                30, 0.6, 0.8, 0.6, 0.05);
+        world.spawnParticles(ParticleTypes.FLASH, player.getX(), player.getBodyY(0.5), player.getZ(), 1, 0, 0, 0, 0);
+        world.spawnParticles(ModParticles.STARLIGHT, player.getX(), player.getBodyY(0.5), player.getZ(),
+                60, 0.8, 1.0, 0.8, 0.08);
         world.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 1.2f);
 
         player.incrementStat(Stats.USED.getOrCreateStat(ModItems.IMMORTAL_HEART));
         player.sendMessage(Text.translatable("message.starfall.heart_saved"), true);
+        ModAdvancements.grant(player, ModAdvancements.IMMORTAL);
         return false;
     }
 
     private static ItemStack findHeart(ServerPlayerEntity player) {
-        // Hands first, then the rest of the inventory.
         ItemStack main = player.getMainHandStack();
         if (main.isOf(ModItems.IMMORTAL_HEART)) {
             return main;

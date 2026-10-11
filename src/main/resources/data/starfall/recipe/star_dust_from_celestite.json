@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "starfall:celestite_ore",
+  "result": {
+    "id": "starfall:star_dust"
+  },
+  "experience": 1.0,
+  "cookingtime": 200
+}

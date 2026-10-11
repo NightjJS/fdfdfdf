@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "starfall:fallen_star_block",
+    "starfall:azure_star_block",
+    "starfall:crimson_star_block"
+  ]
+}

@@ -14,13 +14,13 @@ on:
       version:
         description: 'Release version (tag will be v<version>)'
         type: string
-        default: '1.0.0'
+        default: '2.0.0'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,12 +46,80 @@ jobs:
           name: starfall-mod
           path: build/libs/*.jar
 
+  smoke-test:
+    name: Headless server self-test
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Download mod jar
+        uses: actions/download-artifact@v4
+        with:
+          name: starfall-mod
+          path: mod
+
+      - name: Prepare Fabric server
+        run: |
+          set -euo pipefail
+          MC=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)
+          LOADER=$(grep '^loader_version=' gradle.properties | cut -d= -f2)
+          FAPI=$(grep '^fabric_version=' gradle.properties | cut -d= -f2)
+          INSTALLER=$(curl -sS https://meta.fabricmc.net/v2/versions/installer | jq -r '.[0].version')
+          mkdir -p server/mods
+          curl -sSL -o server/fabric-server.jar "https://meta.fabricmc.net/v2/versions/loader/$MC/$LOADER/$INSTALLER/server/jar"
+          curl -sSL -o server/mods/fabric-api.jar "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/$FAPI/fabric-api-$FAPI.jar"
+          cp mod/*.jar server/mods/
+          echo "eula=true" > server/eula.txt
+          printf 'online-mode=false\nspawn-protection=0\nview-distance=6\nsimulation-distance=6\nmax-tick-time=-1\nsync-chunk-writes=false\nlevel-seed=starfall\n' > server/server.properties
+          ls -la server/mods
+
+      - name: Run server with -Dstarfall.selftest
+        run: |
+          cd server
+          timeout 900 java -Xmx3G -Dstarfall.selftest=true -jar fabric-server.jar nogui > server.log 2>&1 || true
+          echo "=== SELFTEST lines ==="
+          grep -n "SELFTEST" server.log || true
+          echo "=== errors ==="
+          grep -nE "ERROR|Exception|Caused by" server.log | head -80 || true
+          grep -q "STARFALL SELFTEST PASSED" server.log
+
+      - name: Upload server log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-log
+          path: server/server.log
+
+  release:
+    name: Publish release
+    needs: [build, smoke-test]
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.release)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download mod jar
+        uses: actions/download-artifact@v4
+        with:
+          name: starfall-mod
+          path: mod
+
       - name: Publish GitHub release (tag push)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           name: Starfall ${{ github.ref_name }}
-          files: build/libs/*.jar
+          files: mod/*.jar
 
       - name: Publish GitHub release (manual run)
         if: github.event_name == 'workflow_dispatch' && inputs.release
@@ -60,4 +128,4 @@ jobs:
           tag_name: v${{ inputs.version }}
           target_commitish: ${{ github.sha }}
           name: Starfall v${{ inputs.version }}
-          files: build/libs/*.jar
+          files: mod/*.jar

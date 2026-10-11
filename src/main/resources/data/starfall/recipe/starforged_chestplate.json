@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "S S",
+    "SCS",
+    "SSS"
+  ],
+  "key": {
+    "S": "starfall:star_shard",
+    "C": "starfall:star_core"
+  },
+  "result": {
+    "id": "starfall:starforged_chestplate",
+    "count": 1
+  }
+}

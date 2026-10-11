@@ -1,6 +1,18 @@
 {
   "replace": false,
   "values": [
-    "starfall:fallen_star_block"
+    "starfall:starstone",
+    "starfall:polished_starstone",
+    "starfall:starstone_bricks",
+    "starfall:starstone_brick_stairs",
+    "starfall:starstone_brick_slab",
+    "starfall:fallen_star_block",
+    "starfall:azure_star_block",
+    "starfall:crimson_star_block",
+    "starfall:celestite_ore",
+    "starfall:star_crystal",
+    "starfall:star_gate",
+    "starfall:celestial_altar",
+    "starfall:star_lantern"
   ]
 }

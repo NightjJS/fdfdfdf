@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "has_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "starfall:starlight_blade"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blade"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:starlight_blade",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.starforged.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.starforged.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:star_core"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "key": {
+    "S": "starfall:polished_starstone"
+  },
+  "result": {
+    "id": "starfall:starstone_bricks",
+    "count": 4
+  }
+}

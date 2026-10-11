@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "has_hammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "starfall:comet_hammer"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_hammer"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:comet_hammer",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.comet_hammer.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.comet_hammer.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:star_core"
+}

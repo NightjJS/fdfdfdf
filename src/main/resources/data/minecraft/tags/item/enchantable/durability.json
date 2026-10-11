@@ -2,6 +2,14 @@
   "replace": false,
   "values": [
     "starfall:starlight_blade",
-    "starfall:starcaster"
+    "starfall:comet_hammer",
+    "starfall:star_pickaxe",
+    "starfall:star_axe",
+    "starfall:starcaster",
+    "starfall:starfall_scepter",
+    "starfall:starforged_helmet",
+    "starfall:starforged_chestplate",
+    "starfall:starforged_leggings",
+    "starfall:starforged_boots"
   ]
 }

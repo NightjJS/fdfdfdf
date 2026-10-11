@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "OCO",
+    "CGC",
+    "OCO"
+  ],
+  "key": {
+    "O": "minecraft:obsidian",
+    "C": "starfall:star_core",
+    "G": "starfall:guardian_sigil"
+  },
+  "result": {
+    "id": "starfall:star_gate",
+    "count": 1
+  }
+}

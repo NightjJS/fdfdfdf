@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "has_starcaster": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "starfall:starcaster"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_starcaster"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:starcaster",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.starcaster.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.starcaster.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:star_core"
+}

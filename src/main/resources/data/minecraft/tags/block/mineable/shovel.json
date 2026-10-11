@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "starfall:astral_soil",
+    "starfall:astral_turf",
+    "starfall:starfall_dust"
+  ]
+}

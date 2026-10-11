@@ -1,0 +1,88 @@
+{
+  "star.impact": {
+    "sounds": [
+      {
+        "name": "starfall:star/impact",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.starfall.star.impact"
+  },
+  "star.twinkle": {
+    "sounds": [
+      "starfall:star/twinkle"
+    ],
+    "subtitle": "subtitles.starfall.star.twinkle"
+  },
+  "star.sighting": {
+    "sounds": [
+      "starfall:star/sighting"
+    ],
+    "subtitle": "subtitles.starfall.star.sighting"
+  },
+  "gate.travel": {
+    "sounds": [
+      "starfall:gate/travel"
+    ],
+    "subtitle": "subtitles.starfall.gate.travel"
+  },
+  "guardian.ambient": {
+    "sounds": [
+      "starfall:guardian/ambient"
+    ],
+    "subtitle": "subtitles.starfall.guardian.ambient"
+  },
+  "guardian.hurt": {
+    "sounds": [
+      "starfall:guardian/hurt"
+    ],
+    "subtitle": "subtitles.starfall.guardian.hurt"
+  },
+  "guardian.death": {
+    "sounds": [
+      "starfall:guardian/death"
+    ],
+    "subtitle": "subtitles.starfall.guardian.death"
+  },
+  "guardian.attack": {
+    "sounds": [
+      "starfall:guardian/attack"
+    ],
+    "subtitle": "subtitles.starfall.guardian.attack"
+  },
+  "wisp.ambient": {
+    "sounds": [
+      "starfall:wisp/ambient"
+    ],
+    "subtitle": "subtitles.starfall.wisp.ambient"
+  },
+  "wisp.hurt": {
+    "sounds": [
+      "starfall:wisp/hurt"
+    ],
+    "subtitle": "subtitles.starfall.wisp.hurt"
+  },
+  "event.meteor_shower": {
+    "sounds": [
+      "starfall:event/meteor_shower"
+    ],
+    "subtitle": "subtitles.starfall.event.meteor_shower"
+  },
+  "ambient.immortal_realm.loop": {
+    "sounds": [
+      {
+        "name": "starfall:ambient/realm_loop",
+        "stream": true,
+        "volume": 0.6
+      }
+    ]
+  },
+  "music.immortal_realm": {
+    "sounds": [
+      {
+        "name": "starfall:music/realm_theme",
+        "stream": true
+      }
+    ]
+  }
+}

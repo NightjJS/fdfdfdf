@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "has_star": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#starfall:star_blocks"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_star"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:fallen_star_block",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.catch_a_star.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.catch_a_star.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:root"
+}

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "starfall:block/astral_turf"
+      },
+      {
+        "model": "starfall:block/astral_turf",
+        "y": 90
+      },
+      {
+        "model": "starfall:block/astral_turf",
+        "y": 180
+      },
+      {
+        "model": "starfall:block/astral_turf",
+        "y": 270
+      }
+    ]
+  }
+}

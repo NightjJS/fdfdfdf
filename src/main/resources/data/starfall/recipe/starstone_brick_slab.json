@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SSS"
+  ],
+  "key": {
+    "S": "starfall:starstone_bricks"
+  },
+  "result": {
+    "id": "starfall:starstone_brick_slab",
+    "count": 6
+  }
+}

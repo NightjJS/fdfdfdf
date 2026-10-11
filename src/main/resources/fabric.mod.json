@@ -3,7 +3,7 @@
   "id": "starfall",
   "version": "${version}",
   "name": "Starfall",
-  "description": "Shooting stars fall from the night sky. Mine them for star shards, forge the Starlight Blade and the Starcaster, and craft the Immortal Heart to cheat death.",
+  "description": "Shooting stars fall from the night sky, meteor showers light up the horizon, the Star Guardian waits at the Celestial Altar, and beyond the Star Gate lies the Immortal Realm: floating islands under an endless starry night. Forge star gear, wear Starforged armor and cheat death with the Immortal Heart.",
   "authors": [
     "nightjjs"
   ],
@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [
       "com.nightjjs.starfall.Starfall"
+    ],
+    "client": [
+      "com.nightjjs.starfall.client.StarfallClient"
     ]
   },
   "depends": {

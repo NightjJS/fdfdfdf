@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "triggered"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:crimson_star_block",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.meteor_shower.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.meteor_shower.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:catch_a_star"
+}

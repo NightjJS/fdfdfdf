@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "entered": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "starfall:immortal_realm"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "entered"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:star_gate",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.enter_realm.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.enter_realm.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:kill_guardian"
+}

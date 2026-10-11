@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:compass",
+    "starfall:star_shard",
+    "starfall:star_dust"
+  ],
+  "result": {
+    "id": "starfall:star_compass",
+    "count": 1
+  }
+}

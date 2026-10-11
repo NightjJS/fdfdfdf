@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "triggered"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:starforged_chestplate",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.starforged_set.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.starforged_set.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:enter_realm"
+}
