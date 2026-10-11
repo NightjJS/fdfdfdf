@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "SFS",
+    "SXS",
+    "SCS"
+  ],
+  "key": {
+    "S": "starfall:star_shard",
+    "F": "minecraft:fire_charge",
+    "X": "minecraft:crossbow",
+    "C": "starfall:star_core"
+  },
+  "result": {
+    "id": "starfall:starcaster",
+    "count": 1
+  }
+}

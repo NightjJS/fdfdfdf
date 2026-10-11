@@ -1,0 +1,20 @@
+{
+  "itemGroup.starfall": "Звездопад",
+
+  "item.starfall.star_shard": "Осколок звезды",
+  "item.starfall.star_core": "Ядро звезды",
+  "item.starfall.starlight_blade": "Клинок звёздного света",
+  "item.starfall.starlight_blade.lore": "Помечает врагов звёздным светом. Ночью лечит владельца.",
+  "item.starfall.starcaster": "Звездомёт",
+  "item.starfall.starcaster.lore": "Выпускает залп самонаводящихся звёзд.",
+  "item.starfall.immortal_heart": "Сердце бессмертия",
+  "item.starfall.immortal_heart.lore": "Трижды обманывает смерть. Заряжается ядром звезды.",
+  "block.starfall.fallen_star_block": "Упавшая звезда",
+
+  "message.starfall.star_sighted": "Падающая звезда прочертила небо!",
+  "message.starfall.star_fell": "Звезда упала на %s, %s, %s!",
+  "message.starfall.heart_saved": "Сердце бессмертия бьётся за тебя.",
+
+  "command.starfall.star.success": "Падающая звезда уже летит.",
+  "command.starfall.star.failure": "Не нашлось чистого неба, чтобы уронить звезду."
+}

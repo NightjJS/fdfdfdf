@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "key": {
+    "S": "starfall:star_shard"
+  },
+  "result": {
+    "id": "starfall:fallen_star_block",
+    "count": 1
+  }
+}

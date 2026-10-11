@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "starfall:block/fallen_star_block"
+  }
+}

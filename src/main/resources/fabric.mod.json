@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "starfall",
+  "version": "${version}",
+  "name": "Starfall",
+  "description": "Shooting stars fall from the night sky. Mine them for star shards, forge the Starlight Blade and the Starcaster, and craft the Immortal Heart to cheat death.",
+  "authors": [
+    "nightjjs"
+  ],
+  "contact": {
+    "sources": "https://github.com/nightjjs/fdfdfdf"
+  },
+  "license": "MIT",
+  "icon": "assets/starfall/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.nightjjs.starfall.Starfall"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.5",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

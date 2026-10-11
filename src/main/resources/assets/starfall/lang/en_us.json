@@ -1,0 +1,20 @@
+{
+  "itemGroup.starfall": "Starfall",
+
+  "item.starfall.star_shard": "Star Shard",
+  "item.starfall.star_core": "Star Core",
+  "item.starfall.starlight_blade": "Starlight Blade",
+  "item.starfall.starlight_blade.lore": "Marks foes with starlight. Heals its wielder at night.",
+  "item.starfall.starcaster": "Starcaster",
+  "item.starfall.starcaster.lore": "Fires a volley of homing star bolts.",
+  "item.starfall.immortal_heart": "Immortal Heart",
+  "item.starfall.immortal_heart.lore": "Cheats death three times. Recharge with a Star Core.",
+  "block.starfall.fallen_star_block": "Fallen Star",
+
+  "message.starfall.star_sighted": "A shooting star streaks across the sky!",
+  "message.starfall.star_fell": "A star has fallen at %s, %s, %s!",
+  "message.starfall.heart_saved": "The Immortal Heart beats for you.",
+
+  "command.starfall.star.success": "A shooting star is on its way.",
+  "command.starfall.star.failure": "Could not find a clear sky to drop a star from."
+}

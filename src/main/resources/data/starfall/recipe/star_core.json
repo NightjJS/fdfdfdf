@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "SDS",
+    "SSS"
+  ],
+  "key": {
+    "S": "starfall:star_shard",
+    "D": "minecraft:diamond"
+  },
+  "result": {
+    "id": "starfall:star_core",
+    "count": 1
+  }
+}

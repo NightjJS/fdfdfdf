@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "starfall:fallen_star_block"
+  ],
+  "result": {
+    "id": "starfall:star_shard",
+    "count": 4
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "starfall:immortal_heart",
+    "starfall:star_core"
+  ],
+  "result": {
+    "id": "starfall:immortal_heart",
+    "count": 1
+  }
+}

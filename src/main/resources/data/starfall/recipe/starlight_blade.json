@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "C",
+    "C",
+    "B"
+  ],
+  "key": {
+    "C": "starfall:star_core",
+    "B": "minecraft:blaze_rod"
+  },
+  "result": {
+    "id": "starfall:starlight_blade",
+    "count": 1
+  }
+}
