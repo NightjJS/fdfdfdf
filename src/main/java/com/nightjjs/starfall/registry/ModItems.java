@@ -13,7 +13,6 @@ import net.minecraft.component.type.LoreComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
@@ -61,8 +60,8 @@ public final class ModItems {
     public static final Item COMET_HAMMER = register("comet_hammer", Item::new, new Item.Settings()
             .sword(STAR_MATERIAL, 9.0f, -3.4f).rarity(Rarity.EPIC).fireproof()
             .component(DataComponentTypes.LORE, lore("item.starfall.comet_hammer.lore")));
-    public static final Item STAR_PICKAXE = register("star_pickaxe",
-            settings -> new PickaxeItem(STAR_MATERIAL, 1.0f, -2.8f, settings), new Item.Settings().rarity(Rarity.RARE).fireproof());
+    public static final Item STAR_PICKAXE = register("star_pickaxe", Item::new, new Item.Settings()
+            .pickaxe(STAR_MATERIAL, 1.0f, -2.8f).rarity(Rarity.RARE).fireproof());
     public static final Item STAR_AXE = register("star_axe",
             settings -> new AxeItem(STAR_MATERIAL, 6.0f, -3.0f, settings), new Item.Settings().rarity(Rarity.RARE).fireproof());
     public static final Item STARCASTER = register("starcaster", StarcasterItem::new, new Item.Settings()

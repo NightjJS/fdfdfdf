@@ -67,6 +67,15 @@ jar {
     }
 }
 
+// Copies every jar on the compile classpath into build/compile-classpath (used by CI to publish a
+// classpath branch so the sources can be compiled with plain javac without Loom).
+tasks.register('dumpCompileClasspath', Copy) {
+    from sourceSets.main.compileClasspath
+    from sourceSets.client.compileClasspath
+    into layout.buildDirectory.dir('compile-classpath')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 publishing {
     publications {
         create("mavenJava", MavenPublication) {

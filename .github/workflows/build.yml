@@ -15,6 +15,10 @@ on:
         description: 'Release version (tag will be v<version>)'
         type: string
         default: '2.0.0'
+      classpath:
+        description: 'Publish the compile classpath to the ci-classpath branch'
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -99,6 +103,43 @@ jobs:
         with:
           name: server-log
           path: server/server.log
+
+  publish-classpath:
+    name: Publish compile classpath
+    if: github.event_name == 'workflow_dispatch' && inputs.classpath
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Dump compile classpath
+        run: |
+          chmod +x gradlew
+          ./gradlew dumpCompileClasspath --no-daemon
+          du -sh build/compile-classpath
+          ls -la build/compile-classpath | head -50
+
+      - name: Push classpath branch
+        run: |
+          cd build/compile-classpath
+          find . -size +95M -print -delete
+          git init -b ci-classpath
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com add .
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "Compile classpath for ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" ci-classpath
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     name: Publish release
