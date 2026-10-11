@@ -58,10 +58,7 @@ public class StarWispEntity extends PathAwareEntity {
 
     @Override
     protected EntityNavigation createNavigation(World world) {
-        BirdNavigation navigation = new BirdNavigation(this, world);
-        navigation.setCanPathThroughDoors(false);
-        navigation.setCanSwim(false);
-        return navigation;
+        return new BirdNavigation(this, world);
     }
 
     @Override
