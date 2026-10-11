@@ -49,8 +49,8 @@ G C G
 [Fabric API](https://modrinth.com/mod/fabric-api) для 1.21.8.
 
 Также при каждом пуше GitHub Actions (`.github/workflows/build.yml`) собирает мод и выкладывает jar
-в артефактах воркфлоу — вкладка **Actions → Build mod → starfall-mod**. Пуш тега вида `v1.0.0`
-дополнительно создаёт релиз на GitHub с готовым jar во вложениях.
+в артефактах воркфлоу — вкладка **Actions → Build mod → starfall-mod**. Пуш тега вида `v1.0.0` или ручной запуск
+воркфлоу с галочкой *release* дополнительно создаёт релиз на GitHub с готовым jar во вложениях.
 
 Запуск клиента для отладки: `./gradlew runClient`.
 

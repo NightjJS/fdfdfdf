@@ -6,6 +6,15 @@ on:
     tags: ['v*']
   pull_request:
   workflow_dispatch:
+    inputs:
+      release:
+        description: 'Publish a GitHub release with the built jar'
+        type: boolean
+        default: false
+      version:
+        description: 'Release version (tag will be v<version>)'
+        type: string
+        default: '1.0.0'
 
 jobs:
   build:
@@ -39,11 +48,22 @@ jobs:
             build/libs/*.jar
             !build/libs/*-sources.jar
 
-      - name: Publish GitHub release
+      - name: Publish GitHub release (tag push)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           name: Starfall ${{ github.ref_name }}
+          files: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
+
+      - name: Publish GitHub release (manual run)
+        if: github.event_name == 'workflow_dispatch' && inputs.release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ inputs.version }}
+          target_commitish: ${{ github.sha }}
+          name: Starfall v${{ inputs.version }}
           files: |
             build/libs/*.jar
             !build/libs/*-sources.jar
