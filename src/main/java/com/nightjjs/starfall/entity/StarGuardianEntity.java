@@ -1,6 +1,8 @@
 package com.nightjjs.starfall.entity;
 
 import com.nightjjs.starfall.entity.ai.StarBarrageGoal;
+import com.nightjjs.starfall.event.ShootingStarManager;
+import com.nightjjs.starfall.event.StarTier;
 import com.nightjjs.starfall.registry.ModParticles;
 import com.nightjjs.starfall.registry.ModSounds;
 import net.minecraft.entity.EntityType;
@@ -27,6 +29,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -127,6 +130,10 @@ public class StarGuardianEntity extends HostileEntity {
             world.spawnParticles(ParticleTypes.FIREWORK, getX(), getBodyY(0.5), getZ(), 200, 1.5, 1.5, 1.5, 0.3);
             world.spawnParticles(ModParticles.STARLIGHT, getX(), getBodyY(0.5), getZ(), 200, 3.0, 3.0, 3.0, 0.1);
             world.playSound(null, getX(), getY(), getZ(), ModSounds.GUARDIAN_DEATH, SoundCategory.HOSTILE, 4.0f, 1.0f);
+            for (int i = 0; i < 4; i++) {
+                BlockPos around = getBlockPos().add(random.nextInt(13) - 6, 0, random.nextInt(13) - 6);
+                ShootingStarManager.summonStrike(world, around, StarTier.values()[random.nextInt(3)], null, true);
+            }
             Text fallen = Text.translatable("message.starfall.guardian.defeated");
             for (ServerPlayerEntity player : world.getPlayers()) {
                 if (player.squaredDistanceTo(this) <= 160 * 160) {

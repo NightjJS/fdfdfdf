@@ -5,6 +5,9 @@ import com.nightjjs.starfall.registry.ModParticles;
 import com.nightjjs.starfall.registry.ModSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
+import net.minecraft.network.packet.s2c.play.TitleFadeS2CPacket;
+import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
@@ -12,6 +15,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.Vec3d;
@@ -66,6 +70,13 @@ public final class StarGateTravel {
         if (result instanceof ServerPlayerEntity arrived) {
             arrivalEffects(target, destination);
             arrived.sendMessage(Text.translatable(toRealm ? "message.starfall.gate.enter_realm" : "message.starfall.gate.return"), true);
+            if (toRealm) {
+                arrived.networkHandler.sendPacket(new TitleFadeS2CPacket(20, 60, 30));
+                arrived.networkHandler.sendPacket(new SubtitleS2CPacket(
+                        Text.translatable("title.starfall.realm.sub").formatted(Formatting.AQUA)));
+                arrived.networkHandler.sendPacket(new TitleS2CPacket(
+                        Text.translatable("title.starfall.realm").formatted(Formatting.GOLD, Formatting.BOLD)));
+            }
         }
         return true;
     }

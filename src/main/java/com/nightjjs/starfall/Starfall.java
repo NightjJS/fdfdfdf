@@ -11,6 +11,7 @@ import com.nightjjs.starfall.event.WispSpawner;
 import com.nightjjs.starfall.registry.ModBlocks;
 import com.nightjjs.starfall.registry.ModEffects;
 import com.nightjjs.starfall.registry.ModEntities;
+import com.nightjjs.starfall.registry.ModFeatures;
 import com.nightjjs.starfall.registry.ModItemGroups;
 import com.nightjjs.starfall.registry.ModItems;
 import com.nightjjs.starfall.registry.ModParticles;
@@ -37,6 +38,7 @@ public class Starfall implements ModInitializer {
         ModSounds.initialize();
         ModParticles.initialize();
         ModBlocks.initialize();
+        ModFeatures.initialize();
         ModEntities.initialize();
         ModItems.initialize();
         ModEffects.initialize();

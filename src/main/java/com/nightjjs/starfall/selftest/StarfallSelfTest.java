@@ -13,6 +13,7 @@ import com.nightjjs.starfall.registry.ModDimensions;
 import com.nightjjs.starfall.registry.ModEffects;
 import com.nightjjs.starfall.registry.ModEntities;
 import com.nightjjs.starfall.registry.ModTags;
+import com.nightjjs.starfall.worldgen.ObservatoryFeature;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
@@ -101,6 +102,19 @@ public final class StarfallSelfTest {
                     "kill_guardian", "starforged_set", "summon_guardian", "call_a_star", "wisp_friend"}) {
                 check(server.getAdvancementLoader().get(Starfall.id(advancement)) != null, "advancement present: " + advancement);
             }
+
+            check(server.getStructureTemplateManager().getTemplate(ObservatoryFeature.TEMPLATE).isPresent(),
+                    "observatory structure template loads");
+            check(server.getRegistryManager().getOrThrow(RegistryKeys.CONFIGURED_FEATURE).containsId(Starfall.id("observatory")),
+                    "observatory configured feature registered");
+            check(server.getRegistryManager().getOrThrow(RegistryKeys.PLACED_FEATURE).containsId(Starfall.id("astral_trees")),
+                    "astral trees placed feature registered");
+            check(server.getRegistryManager().getOrThrow(RegistryKeys.BIOME).containsId(Starfall.id("astral_meadows")),
+                    "astral meadows biome registered");
+            check(server.getRegistryManager().getOrThrow(RegistryKeys.JUKEBOX_SONG).containsId(Starfall.id("realm_theme")),
+                    "jukebox song registered");
+            RegistryKey<LootTable> chest = RegistryKey.of(RegistryKeys.LOOT_TABLE, Starfall.id("chests/observatory"));
+            check(server.getReloadableRegistries().getLootTable(chest) != LootTable.EMPTY, "observatory chest loot present");
 
             long recipes = server.getRecipeManager().values().stream()
                     .map(RecipeEntry::id)
@@ -200,9 +214,20 @@ public final class StarfallSelfTest {
                         if (traveller != null) {
                             traveller.discard();
                         }
-                        // Generate a second chunk to exercise biomes, surface rules and features.
-                        realm.getChunk(3, 3);
-                        check(true, "realm chunk (3,3) generated");
+                        // Generate more chunks to exercise biomes, surface rules, trees and the observatory feature.
+                        for (int cx = -2; cx <= 2; cx++) {
+                            for (int cz = -2; cz <= 2; cz++) {
+                                realm.getChunk(cx, cz);
+                            }
+                        }
+                        check(true, "realm chunks (-2..2) generated");
+                        int astral = 0;
+                        for (int cx = -2; cx <= 2; cx++) {
+                            for (int cz = -2; cz <= 2; cz++) {
+                                astral += realm.getChunk(cx, cz).getBlockState(new BlockPos(cx * 16 + 8, 0, cz * 16 + 8)).isAir() ? 0 : 1;
+                            }
+                        }
+                        check(true, "sampled realm columns: " + astral + " of 25 have ground at y=0");
                         next(7);
                     }
                 }

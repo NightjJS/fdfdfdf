@@ -10,6 +10,8 @@ import com.nightjjs.starfall.registry.ModParticles;
 import com.nightjjs.starfall.registry.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -82,6 +84,12 @@ public class CelestialAltarBlock extends Block {
         world.spawnParticles(ParticleTypes.FLASH, x, y + 3, z, 1, 0, 0, 0, 0);
         world.spawnParticles(ParticleTypes.END_ROD, x, y, z, 120, 1.5, 2.5, 1.5, 0.15);
         world.spawnParticles(ModParticles.STARLIGHT, x, y, z, 120, 2.0, 3.0, 2.0, 0.05);
+        LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world, SpawnReason.TRIGGERED);
+        if (lightning != null) {
+            lightning.setPosition(x, altarPos.getY() + 1.0, z);
+            lightning.setCosmetic(true);
+            world.spawnEntity(lightning);
+        }
         world.playSound(null, altarPos, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.HOSTILE, 3.0f, 0.7f);
         world.playSound(null, altarPos, ModSounds.GUARDIAN_AMBIENT, SoundCategory.HOSTILE, 3.0f, 0.8f);
 

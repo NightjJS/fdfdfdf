@@ -45,6 +45,7 @@ public final class ModItemGroups {
                     entries.add(ModItems.STARFORGED_BOOTS);
                     entries.add(ModItems.IMMORTAL_HEART);
                     entries.add(ModItems.STAR_COMPASS);
+                    entries.add(ModItems.MUSIC_DISC_STARFALL);
                     entries.add(potion(ModEffects.STARLIGHT_POTION));
                     entries.add(potion(ModEffects.LONG_STARLIGHT_POTION));
                     entries.add(potion(ModEffects.STRONG_STARLIGHT_POTION));
@@ -63,6 +64,7 @@ public final class ModItemGroups {
                     entries.add(ModBlocks.ASTRAL_LOG);
                     entries.add(ModBlocks.ASTRAL_PLANKS);
                     entries.add(ModBlocks.ASTRAL_LEAVES);
+                    entries.add(ModBlocks.ASTRAL_SAPLING);
                     entries.add(ModBlocks.STARBLOOM);
                     entries.add(ModBlocks.STAR_CRYSTAL);
                     entries.add(ModBlocks.STAR_LANTERN);
@@ -110,9 +112,12 @@ public final class ModItemGroups {
             entries.add(ModBlocks.ASTRAL_TURF);
             entries.add(ModBlocks.ASTRAL_LOG);
             entries.add(ModBlocks.ASTRAL_LEAVES);
+            entries.add(ModBlocks.ASTRAL_SAPLING);
             entries.add(ModBlocks.STARBLOOM);
             entries.add(ModBlocks.STAR_CRYSTAL);
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries ->
+                entries.add(ModItems.MUSIC_DISC_STARFALL));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
             entries.add(ModBlocks.POLISHED_STARSTONE);
             entries.add(ModBlocks.STARSTONE_BRICKS);

@@ -10,6 +10,9 @@ import net.minecraft.block.ExperienceDroppingBlock;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.PillarBlock;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.SaplingGenerator;
+import net.minecraft.block.UntintedParticleLeavesBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.piston.PistonBehavior;
@@ -23,11 +26,18 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 public final class ModBlocks {
     private ModBlocks() {
     }
+
+    /** Grows the astral tree configured feature (data/starfall/worldgen/configured_feature/astral_tree.json). */
+    public static final SaplingGenerator ASTRAL_SAPLING_GENERATOR = new SaplingGenerator(
+            "starfall:astral", Optional.empty(),
+            Optional.of(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Starfall.id("astral_tree"))),
+            Optional.empty());
 
     // --- Landed stars (three tiers) ---
     public static final Block FALLEN_STAR_BLOCK = register("fallen_star_block", Block::new, star(MapColor.GOLD));
@@ -54,12 +64,19 @@ public final class ModBlocks {
             .mapColor(MapColor.DEEPSLATE_GRAY).strength(2.0f).sounds(BlockSoundGroup.WOOD).burnable());
     public static final Block ASTRAL_PLANKS = register("astral_planks", Block::new, AbstractBlock.Settings.create()
             .mapColor(MapColor.LIGHT_BLUE_GRAY).strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD).burnable());
-    public static final Block ASTRAL_LEAVES = register("astral_leaves", Block::new, AbstractBlock.Settings.create()
-            .mapColor(MapColor.CYAN).strength(0.2f).sounds(BlockSoundGroup.GRASS).nonOpaque().luminance(state -> 6)
+    public static final Block ASTRAL_LEAVES = register("astral_leaves",
+            settings -> new UntintedParticleLeavesBlock(0.02f, ModParticles.STARLIGHT, settings), AbstractBlock.Settings.create()
+            .mapColor(MapColor.CYAN).strength(0.2f).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().luminance(state -> 6)
             .allowsSpawning((state, world, pos, type) -> false)
             .suffocates((state, world, pos) -> false)
             .blockVision((state, world, pos) -> false)
-            .burnable());
+            .burnable()
+            .pistonBehavior(PistonBehavior.DESTROY)
+            .solidBlock((state, world, pos) -> false));
+    public static final Block ASTRAL_SAPLING = register("astral_sapling",
+            settings -> new SaplingBlock(ASTRAL_SAPLING_GENERATOR, settings), AbstractBlock.Settings.create()
+            .mapColor(MapColor.CYAN).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS)
+            .luminance(state -> 4).pistonBehavior(PistonBehavior.DESTROY));
     public static final Block STARBLOOM = register("starbloom",
             settings -> new FlowerBlock(StatusEffects.GLOWING, 8.0f, settings), AbstractBlock.Settings.create()
             .mapColor(MapColor.YELLOW).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS)

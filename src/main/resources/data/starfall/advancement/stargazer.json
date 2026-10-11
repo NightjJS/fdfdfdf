@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "has_disc": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "starfall:music_disc_starfall"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_disc"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "starfall:music_disc_starfall",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.starfall.stargazer.title"
+    },
+    "description": {
+      "translate": "advancements.starfall.stargazer.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "sends_telemetry_event": false,
+  "parent": "starfall:enter_realm"
+}

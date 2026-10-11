@@ -1,0 +1,8 @@
+{
+  "sound_event": "starfall:music.immortal_realm",
+  "description": {
+    "translate": "jukebox_song.starfall.realm_theme"
+  },
+  "length_in_seconds": 70.0,
+  "comparator_output": 14
+}

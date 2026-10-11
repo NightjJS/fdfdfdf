@@ -61,8 +61,17 @@ public final class ShootingStarManager {
     private static final double SHOCKWAVE_RADIUS = 6.0;
     private static final int LANDING_HISTORY = 32;
 
-    private record TrackedStar(FallingBlockEntity entity, StarTier tier, LivingEntity owner, boolean leaveBlock, boolean announce) {
+    private record TrackedStar(FallingBlockEntity entity, StarTier tier, LivingEntity owner, boolean leaveBlock,
+                               boolean announce, boolean harmless) {
     }
+
+    /** A pillar of light that lingers over a fresh impact. */
+    private record LightBeam(RegistryKey<World> world, BlockPos pos, int[] ticksLeft) {
+    }
+
+    private static final List<LightBeam> BEAMS = new ArrayList<>();
+    private static final int BEAM_TICKS = 100;
+    private static final int BEAM_HEIGHT = 48;
 
     private static final List<TrackedStar> STARS = new ArrayList<>();
     private static final Map<RegistryKey<World>, Deque<BlockPos>> LANDINGS = new ConcurrentHashMap<>();
@@ -73,6 +82,7 @@ public final class ShootingStarManager {
         ServerTickEvents.END_WORLD_TICK.register(ShootingStarManager::onWorldTick);
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
             STARS.clear();
+            BEAMS.clear();
             LANDINGS.clear();
         });
     }
@@ -106,7 +116,7 @@ public final class ShootingStarManager {
 
         double drift = random.nextDouble() * Math.PI * 2.0;
         Vec3d velocity = new Vec3d(Math.cos(drift) * 0.45, -0.6, Math.sin(drift) * 0.45);
-        FallingBlockEntity star = launch(world, pos, tier, velocity, null, true, true);
+        FallingBlockEntity star = launch(world, pos, tier, velocity, null, true, true, false);
         if (star == null) {
             return false;
         }
@@ -126,18 +136,23 @@ public final class ShootingStarManager {
         if (pos.getY() > MAX_SPAWN_Y) {
             pos = new BlockPos(target.getX(), (int) MAX_SPAWN_Y, target.getZ());
         }
-        return launch(world, pos, tier, new Vec3d(0.0, -1.2, 0.0), owner, leaveBlock, false) != null;
+        return launch(world, pos, tier, new Vec3d(0.0, -1.2, 0.0), owner, leaveBlock, false, false) != null;
     }
 
     /** A guardian strike: a star that shatters on landing instead of leaving a block. */
     public static void summonStrike(ServerWorld world, BlockPos target, StarTier tier, LivingEntity owner) {
+        summonStrike(world, target, tier, owner, false);
+    }
+
+    /** A strike; when {@code harmless} it is pure spectacle (no crush damage, no shockwave). */
+    public static void summonStrike(ServerWorld world, BlockPos target, StarTier tier, LivingEntity owner, boolean harmless) {
         Random random = world.random;
         BlockPos pos = target.add(random.nextInt(5) - 2, 30, random.nextInt(5) - 2);
-        launch(world, pos, tier, new Vec3d(0.0, -1.0, 0.0), owner, false, false);
+        launch(world, pos, tier, new Vec3d(0.0, -1.0, 0.0), owner, false, false, harmless);
     }
 
     private static FallingBlockEntity launch(ServerWorld world, BlockPos pos, StarTier tier, Vec3d velocity,
-                                             LivingEntity owner, boolean leaveBlock, boolean announce) {
+                                             LivingEntity owner, boolean leaveBlock, boolean announce, boolean harmless) {
         int chunkX = MathHelper.floor(pos.getX()) >> 4;
         int chunkZ = MathHelper.floor(pos.getZ()) >> 4;
         if (!world.getChunkManager().isChunkLoaded(chunkX, chunkZ)) {
@@ -147,14 +162,17 @@ public final class ShootingStarManager {
             return null;
         }
         FallingBlockEntity star = FallingBlockEntity.spawnFromBlock(world, pos, tier.block().getDefaultState());
-        star.setHurtEntities(tier.crushDamage, 60);
+        if (!harmless) {
+            star.setHurtEntities(tier.crushDamage, 60);
+        }
         star.dropItem = leaveBlock;
         star.setVelocity(velocity);
-        STARS.add(new TrackedStar(star, tier, owner, leaveBlock, announce));
+        STARS.add(new TrackedStar(star, tier, owner, leaveBlock, announce, harmless));
         return star;
     }
 
     private static void tickStars(ServerWorld world) {
+        tickBeams(world);
         if (STARS.isEmpty()) {
             return;
         }
@@ -204,8 +222,11 @@ public final class ShootingStarManager {
         world.playSound(null, pos, ModSounds.STAR_IMPACT, SoundCategory.BLOCKS, 4.0f, 0.9f + world.random.nextFloat() * 0.2f);
         world.playSound(null, pos, ModSounds.STAR_TWINKLE, SoundCategory.BLOCKS, 2.0f, 1.0f);
 
-        shockwave(world, pos, tier, tracked.owner());
-        scorchGround(world, pos);
+        if (!tracked.harmless()) {
+            shockwave(world, pos, tier, tracked.owner());
+            scorchGround(world, pos);
+        }
+        BEAMS.add(new LightBeam(world.getRegistryKey(), pos, new int[]{BEAM_TICKS}));
 
         if (!tracked.leaveBlock()) {
             world.removeBlock(pos, false);
@@ -230,6 +251,35 @@ public final class ShootingStarManager {
                     player.sendMessage(landed, false);
                     retuneCompasses(player, world, pos);
                 }
+            }
+        }
+    }
+
+    private static void tickBeams(ServerWorld world) {
+        if (BEAMS.isEmpty()) {
+            return;
+        }
+        Iterator<LightBeam> iterator = BEAMS.iterator();
+        while (iterator.hasNext()) {
+            LightBeam beam = iterator.next();
+            if (beam.world() != world.getRegistryKey()) {
+                continue;
+            }
+            if (--beam.ticksLeft()[0] <= 0) {
+                iterator.remove();
+                continue;
+            }
+            double x = beam.pos().getX() + 0.5;
+            double z = beam.pos().getZ() + 0.5;
+            double intensity = beam.ticksLeft()[0] / (double) BEAM_TICKS;
+            int motes = 2 + (int) (6 * intensity);
+            for (int i = 0; i < motes; i++) {
+                double y = beam.pos().getY() + 1.0 + world.random.nextDouble() * BEAM_HEIGHT * intensity;
+                world.spawnParticles(ModParticles.STARLIGHT, x, y, z, 1, 0.25, 0.5, 0.25, 0.0);
+            }
+            if (world.random.nextInt(3) == 0) {
+                double y = beam.pos().getY() + 1.0 + world.random.nextDouble() * BEAM_HEIGHT * intensity;
+                world.spawnParticles(ParticleTypes.END_ROD, x, y, z, 1, 0.1, 0.4, 0.1, 0.0);
             }
         }
     }

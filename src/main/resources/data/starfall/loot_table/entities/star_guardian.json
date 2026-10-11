@@ -126,6 +126,22 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.5
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "starfall:music_disc_starfall"
+        }
+      ]
     }
   ],
   "random_sequence": "starfall:entities/star_guardian"

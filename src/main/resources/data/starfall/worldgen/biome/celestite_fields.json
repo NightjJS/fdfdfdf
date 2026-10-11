@@ -41,7 +41,9 @@
     [],
     [],
     [],
-    [],
+    [
+      "starfall:observatory"
+    ],
     [],
     [
       "starfall:ore_celestite_rich",

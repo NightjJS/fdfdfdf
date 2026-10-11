@@ -89,6 +89,11 @@ public final class ModItems {
     public static final Item STAR_COMPASS = register("star_compass", StarCompassItem::new, new Item.Settings()
             .maxCount(1).component(DataComponentTypes.LORE, lore("item.starfall.star_compass.lore")));
 
+    /** Plays the Immortal Realm theme; see data/starfall/jukebox_song/realm_theme.json. */
+    public static final Item MUSIC_DISC_STARFALL = register("music_disc_starfall", Item::new, new Item.Settings()
+            .maxCount(1).rarity(Rarity.RARE)
+            .jukeboxPlayable(RegistryKey.of(RegistryKeys.JUKEBOX_SONG, Starfall.id("realm_theme"))));
+
     // --- Spawn eggs ---
     public static final Item STAR_GUARDIAN_SPAWN_EGG = register("star_guardian_spawn_egg",
             settings -> new SpawnEggItem(ModEntities.STAR_GUARDIAN, settings), new Item.Settings());
