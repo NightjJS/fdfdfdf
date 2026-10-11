@@ -57,7 +57,13 @@ public class ObservatoryFeature extends Feature<DefaultFeatureConfig> {
             return false;
         }
         BlockPos placeAt = new BlockPos(corner.getX(), lowest + 1, corner.getZ());
-        StructurePlacementData placement = new StructurePlacementData().setRotation(rotation).setIgnoreEntities(false);
+        // Rotate around the template's centre so every rotation keeps the same (square) footprint, which
+        // stays inside the chunk neighbourhood a feature is allowed to write to.
+        BlockPos pivot = new BlockPos(size.getX() / 2, 0, size.getZ() / 2);
+        StructurePlacementData placement = new StructurePlacementData()
+                .setRotation(rotation)
+                .setPosition(pivot)
+                .setIgnoreEntities(false);
         return template.get().place(world, placeAt, placeAt, placement, context.getRandom(), 2);
     }
 

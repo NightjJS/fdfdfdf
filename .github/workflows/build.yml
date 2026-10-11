@@ -95,6 +95,7 @@ jobs:
           grep -n "SELFTEST" server.log || true
           echo "=== errors ==="
           grep -nE "ERROR|Exception|Caused by" server.log | head -80 || true
+          if grep -q "setBlock in a far chunk" server.log; then echo "worldgen wrote outside its chunk area"; exit 1; fi
           grep -q "STARFALL SELFTEST PASSED" server.log
 
       - name: Upload server log
